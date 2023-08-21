@@ -1,0 +1,32 @@
+name: Build PDFs
+
+on:
+  push:
+    branches: [ "trunk" ]
+  pull_request:
+    branches: [ "trunk" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag latex:$(date +%s)
+
+    - name: Build pdf using docker image
+      run: docker run -it --rm -v "$(pwd):/home/porter/app" --name maths --hostname math latex ./compile.sh ./calcmem.tex
+      run: |
+        mkdir -p ./pdfs
+        cp builds/*.pdf ./pdfs
+        touch ./pdfs/.nojekyll
+
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@4.1.5
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages # The branch the action should deploy to.
+        FOLDER: pdfs     # The folder the action should deploy.
+        CLEAN: true      # Automatically remove deleted files from the deploy branch
+
