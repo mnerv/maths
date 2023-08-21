@@ -13,19 +13,19 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - id: Image Cache
+    - id: image-cache
       uses: actions/cache@v3
       with:
-        path: ~/images
-        key: images-${{ runner.os }}
-
-    - if: steps.images.outputs.cache-hit != 'true'
-      run: |
-        docker build . --file Dockerfile --tag latex
-        docker save -o ~/images/latex.tar alpine
+        path: ~/image-cache
+        key: image-cache-${{ runner.os }}
 
     - if: steps.image-cache.outputs.cache-hit != 'true'
-      run: docker load -i ~images/latex.tar
+      run: |
+        docker build . --file Dockerfile --tag latex
+        docker save -o ~/image-cache/latex.tar alpine
+
+    - if: steps.image-cache.outputs.cache-hit != 'true'
+      run: docker load -i ~/image-cache/latex.tar
 
     - name: Build pdf using docker image
       run: |
