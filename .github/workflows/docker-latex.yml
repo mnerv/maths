@@ -21,16 +21,19 @@ jobs:
         path: ~/image-cache
         key: ${{ runner.os }}-image-cache
 
-    - if: steps.image-cache.outputs.cache-hit != 'true'
+    - name: Build docker image
+      if: steps.image-cache.outputs.cache-hit != 'true'
       run: |
         docker build . --file Dockerfile --tag latex
         docker save -o ~/image-cache/latex.tar alpine
 
-    - if: steps.image-cache.outputs.cache-hit == 'true'
+    - name: Load docker image from cache
+      if: steps.image-cache.outputs.cache-hit == 'true'
       run: docker load -i ~/image-cache/latex.tar
 
     - name: Build pdf using docker image
       run: |
+        chmod +x ./compile.sh
         docker run --rm -v "$(pwd):/home/porter/app" --name maths --hostname math latex ./compile.sh ./calcmem.tex
         mkdir -p ./pdfs
         cp builds/*.pdf ./pdfs
