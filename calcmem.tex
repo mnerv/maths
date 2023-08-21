@@ -1,0 +1,119 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}     % Fix weird character
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage[style=ieee,backend=biber]{biblatex}
+\usepackage{tikz}
+
+\geometry{
+    a4paper,
+    hmargin=2.54cm,
+    tmargin=1.27cm,
+    bmargin=1.27cm,
+    includeheadfoot
+}
+
+\begin{document}
+\section*{Derivata av elementära funktioner (p.219)}
+
+\begin{align}
+    D\ e^x &= e^x,\\
+    D\ \ln x &= \frac{1}{x},\\
+    D\ a^x &= a^x ln a, \qquad a > 0\ \mathrm{konstant},\\
+    D\ {}^{a}\log x &= \frac{1}{x \ln a}, \qquad a > 0,\ a \neq 1\ \mathrm{konstant},\\
+    D\ x^\alpha &= \alpha x^{\alpha - 1}, \qquad \alpha\ \mathrm{konstant},\\
+    D\ \sin x &= \cos x,\\
+    D\ \cos x &= -\sin x,\\
+    D\ \tan x &= \frac{1}{\cos^2 x},\\
+    D\ \cot x &= -\frac{1}{\sin^2 x},\\
+    D\ \arcsin x &= \frac{1}{\sqrt{1 - x^x}},\\
+    D\ \arccos x &= -\frac{1}{\sqrt{1 - x^2}},\\
+    D\ \arctan x &= \frac{1}{1 + x^2},\\
+    D\ \mathrm{arccot} x &= -\frac{1}{1 + x^2}.
+\end{align}
+
+\section*{Elementära primitiva funktioner (p.281)}
+
+\begin{align}
+    \int e^{x}\ dx &= e^x + C,\\
+    \int \frac{1}{x}\ dx &= ln x + C,\\
+    \int x^{\alpha}\ dx &= \frac{x^{\alpha + 1}}{\alpha + 1} + C \qquad (\alpha \neq -1),\\
+    \int \cos x\ dx &= \sin x + C,\\
+    \int \sin x\ dx &= -\cos x + C,\\
+    \int \frac{1}{\cos^2 x}\ dx &= \tan x + C,\\
+    \int \frac{1}{\sin^2 x}\ dx &= -\cot x + C,\\
+    \int \frac{1}{\sqrt{1 - x^2}}\ dx &= \arcsin x + C,\\
+    \int \frac{1}{1 - x^2}\ dx &= \arctan x + C.
+\end{align}
+
+\newpage
+\section*{Maclaurin- och Taylorutvecklingar}
+
+\subsection*{Maclaurinvecklingar}
+
+\textbf{Definition 11.1} (Maclaurinpolynom). \textit{Låt $f$ vara en funktion som är (minst) $n$ gånger deriverbar i en omgivning av punkten 0. Polynomet}
+
+\begin{equation}
+    p_n(x) = f(0) + f'(0)x + \frac{f''(0)}{2}x^2 + \frac{f^{(3)}(0)}{3!}x^3 +\ ...\ + \frac{f^{(n)}(0)}{n!}x^n
+    \label{eq:maclaurinpolynom}
+\end{equation}
+
+\textit{kallas \textbf{Maclaurinpolynomet} av \textbf{ordning} $n$ till $f$}. (p.258)
+
+\subsubsection*{Restermen}
+
+\textbf{Sats 11.1} (Maclaurins formel). \textit{Antag att funktionen $f$ har kontinuerliga derivator (minst) till och med ordning $n + 1$ i en omgivning av punkten} 0. \textit{Då gäller det, för alla $x$ i denna omgivning, att}
+
+\begin{equation}
+    f(x) = f(0) + f'(0)x + \frac{f''(0)}{2!}x^2 + \frac{f^{(3)}(0)}{3!}x^3 +\ ...\ + \frac{f^{(n)}(0)}{n!}x^n + R_{n + 1}(xA,)
+    \label{eq:maclaurinpolynom_och_rest}
+\end{equation}
+
+\textit{där}
+
+
+\begin{equation}
+    R_{n + 1}(x) = \frac{f^{(n + 1)(\epsilon)}}{(n +  1)!}x^{n + 1}
+    \label{eq:maclaurinpolynom_rest}
+\end{equation}
+
+\textit{för något $\epsilon$ mellan $0$ och $x$}. (p.259)
+
+\subsection*{Taylorutvecklingar}
+
+\textbf{Sats 11.4} (Talyors formel.) \textit{Antag att funktionen $f$ har kontinuerliga derivator (minst) till och med ordning $n + 1$ i en omgivning av punkten $a$. Då gäller det, för alla ¤x¤ i denna omgivning, att}
+
+\begin{equation}
+    f(x) = f(a) + f'(a)(x - a) + \frac{f''(a)}{2}(x - a)^2 +\ ...\ + \frac{f^{(n)}(a)}{n!}(x - a)^n + R_{n + 1}(x),
+\end{equation}
+
+\begin{equation}
+    \text{där}\qquad R_{n + 1}(x) = \frac{f^{(n + 1)}(\beta)}{(n + 1)!}(x - a)^{n + 1}
+\end{equation}
+
+\textit{för något $\beta$ mellan $a$ och $x$.} (p.275)
+
+\section*{Integraler}
+
+\subsection*{Räknelagar för integraler (p.311)}
+
+\textbf{Sats 13.4}. \textit{Antag att funktionerna $f$ och $g$ är integrerbara p[ intervallet $[a, b]$. Då gäller:}
+
+\begin{align}
+    \int_a^b{\alpha f(x)} dx &= \alpha \int_a^b{f(x)} dx, \qquad \alpha\ \text{konstant},\\
+    \int_a^b{(f(x) + g(x))} dx &= \int_a^b{f(x)} dx + \int_a^b{g(x)} dx,\\
+    \int_a^b{(f(x)} dx &= \int_a^c{f(x)} dx + \int_c^b{f(x)} dx,\\
+    f(x) \leq g(x) \quad \text{då}\ a \leq x \leq b \quad &\Rightarrow \quad \int_a^b{f(x)} dx \leq \int_a^b{g(x)} dx.
+\end{align}
+
+\subsubsection*{Partialintegration (p.319)}
+
+\textbf{Sats 13.9} (Partialintegration). \textit{Antag att $F$ är en primitiv funktion till $f$, och att $f$ och $g'$ är kontinuerliga på intervallet $[a, b]$. Då gäller}
+
+\begin{equation}
+    \int_a^b{f(x)g(x)}dx = \left [F(x)g(x)\right ]_a^b - \int_a^b{F(x)g'(x)}dx.
+\end{equation}
+
+\end{document}
+
