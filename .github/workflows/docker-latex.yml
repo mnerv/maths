@@ -24,7 +24,7 @@ jobs:
         docker build . --file Dockerfile --tag latex
         docker save -o ~/image-cache/latex.tar alpine
 
-    - if: steps.image-cache.outputs.cache-hit != 'true'
+    - if: steps.image-cache.outputs.cache-hit == 'true'
       run: docker load -i ~/image-cache/latex.tar
 
     - name: Build pdf using docker image
