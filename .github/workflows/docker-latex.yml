@@ -1,10 +1,13 @@
-name: Build PDFs
+name: Build PDFs and Deploy
 
 on:
   push:
     branches: [ "trunk" ]
-  pull_request:
-    branches: [ "trunk" ]
+      #  pull_request:
+      #    branches: [ "trunk" ]
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -41,9 +44,8 @@ jobs:
         touch ./pdfs/.nojekyll
 
     - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@4.1.5
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages # The branch the action should deploy to.
         FOLDER: pdfs     # The folder the action should deploy.
         CLEAN: true      # Automatically remove deleted files from the deploy branch
