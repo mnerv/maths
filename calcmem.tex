@@ -2,8 +2,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}     % Fix weird character
 \usepackage{geometry}
+\usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{gensymb}
+\usepackage{parskip}
 \usepackage[style=ieee,backend=biber]{biblatex}
+\usepackage[breaklinks=true,bookmarks=true,hidelinks]{hyperref}
 \usepackage{tikz}
 
 \geometry{
@@ -13,9 +17,57 @@
     bmargin=1.27cm,
     includeheadfoot
 }
+\setcounter{secnumdepth}{0}  % Disable section numbering
 
 \begin{document}
-\section*{Derivata av elementära funktioner (p.219)}
+
+\section{Elementära funktioner}
+
+\subsection{Logaritmfunktioner}
+
+\textbf{Egenskaper hos logaritmer} (p.132)
+
+\begin{align}
+    {}^a\log a^x &= x, \qquad x \in \mathbb{R},\\
+    a^{\log x} &= x, \qquad x > 0,\\
+    {}^a\log x &= \frac{\log{x}}{\log{a}}.
+\end{align}
+
+\textbf{Sats 8.4} \textit{För $x,\ y > 0$ och $k \in \mathbb{R}$ gäller följande räknelagar:} (p.133)
+
+\begin{align}
+    {}^a\log xy &= {}^a\log x + {}^a\log y,\\
+    {}^a\log \frac{x}{y} &= {}^a\log x - {}^a\log y,\\
+    {}^a\log x^k &= k{}^a\log x.
+\end{align}
+
+\subsection{Trigonometriska funktioner (p.139)}
+
+\textbf{Grader} (p.139)
+
+\begin{align}
+    \cos 45\degree &= \sin 45\degree = \frac{1}{\sqrt{2}}, &\tan 45\degree &= \cot 45\degree = 1,\\
+    \cos 60\degree &= \sin 30\degree = \frac{1}{2},        &\tan 60\degree &= \cot 30\degree = \sqrt{3},\\
+    \cos 30\degree &= \sin 60\degree = \frac{\sqrt{3}}{2}, &\tan 30\degree &= \cot 60\degree = \frac{1}{\sqrt{3}}.
+\end{align}
+
+\textbf{Radianer} (p.140)
+
+\begin{align}
+    \cos \frac{\pi}{4} &= \sin \frac{\pi}{4} = \frac{1}{\sqrt{2}}, &\tan \frac{\pi}{4} &= \cot \frac{\pi}{4} = 1,\\
+    \cos \frac{\pi}{3} &= \sin \frac{\pi}{6} = \frac{1}{2},        &\tan \frac{\pi}{3} &= \cot \frac{\pi}{6} = \sqrt{3},\\
+    \cos \frac{\pi}{6} &= \sin \frac{\pi}{3} = \frac{\sqrt{3}}{2}, &\tan \frac{\pi}{6} &= \cot \frac{\pi}{3} = \frac{1}{\sqrt{3}}.
+\end{align}
+
+\textbf{Tangens och cotangens} (p.142)
+
+\begin{align}
+    \tan x &= \frac{\sin x}{\cos x}, \quad x \neq \frac{\pi}{2} + k\pi,\\
+    \nonumber \\
+    \cot x &= \frac{\cos x}{\sin x}, \quad x \neq k\pi.
+\end{align}
+
+\subsection{Derivata av elementära funktioner (p.219)}
 
 \begin{align}
     D\ e^x &= e^x,\\
@@ -33,7 +85,7 @@
     D\ \mathrm{arccot} x &= -\frac{1}{1 + x^2}.
 \end{align}
 
-\section*{Elementära primitiva funktioner (p.281)}
+\subsection{Elementära primitiva funktioner (p.281)}
 
 \begin{align}
     \int e^{x}\ dx &= e^x + C,\\
@@ -48,9 +100,9 @@
 \end{align}
 
 \newpage
-\section*{Maclaurin- och Taylorutvecklingar}
+\section{Maclaurin- och Taylorutvecklingar}
 
-\subsection*{Maclaurinvecklingar}
+\subsection{Maclaurinvecklingar}
 
 \textbf{Definition 11.1} (Maclaurinpolynom). \textit{Låt $f$ vara en funktion som är (minst) $n$ gånger deriverbar i en omgivning av punkten 0. Polynomet}
 
@@ -61,7 +113,7 @@
 
 \textit{kallas \textbf{Maclaurinpolynomet} av \textbf{ordning} $n$ till $f$}. (p.258)
 
-\subsubsection*{Restermen}
+\subsubsection{Restermen}
 
 \textbf{Sats 11.1} (Maclaurins formel). \textit{Antag att funktionen $f$ har kontinuerliga derivator (minst) till och med ordning $n + 1$ i en omgivning av punkten} 0. \textit{Då gäller det, för alla $x$ i denna omgivning, att}
 
@@ -80,7 +132,7 @@
 
 \textit{för något $\epsilon$ mellan $0$ och $x$}. (p.259)
 
-\subsection*{Taylorutvecklingar}
+\subsection{Taylorutvecklingar}
 
 \textbf{Sats 11.4} (Talyors formel.) \textit{Antag att funktionen $f$ har kontinuerliga derivator (minst) till och med ordning $n + 1$ i en omgivning av punkten $a$. Då gäller det, för alla ¤x¤ i denna omgivning, att}
 
@@ -94,9 +146,9 @@
 
 \textit{för något $\beta$ mellan $a$ och $x$.} (p.275)
 
-\section*{Integraler}
+\section{Integraler}
 
-\subsection*{Räknelagar för integraler (p.311)}
+\subsection{Räknelagar för integraler (p.311)}
 
 \textbf{Sats 13.4}. \textit{Antag att funktionerna $f$ och $g$ är integrerbara p[ intervallet $[a, b]$. Då gäller:}
 
@@ -107,7 +159,7 @@
     f(x) \leq g(x) \quad \text{då}\ a \leq x \leq b \quad &\Rightarrow \quad \int_a^b{f(x)} dx \leq \int_a^b{g(x)} dx.
 \end{align}
 
-\subsubsection*{Partialintegration (p.319)}
+\subsubsection{Partialintegration (p.319)}
 
 \textbf{Sats 13.9} (Partialintegration). \textit{Antag att $F$ är en primitiv funktion till $f$, och att $f$ och $g'$ är kontinuerliga på intervallet $[a, b]$. Då gäller}
 
