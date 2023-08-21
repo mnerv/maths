@@ -15,7 +15,8 @@ jobs:
 
     - run: mkdir -p ~/image-cache
 
-    - id: image-cache
+    - name: Cache Image
+      id: image-cache
       uses: actions/cache@v3
       with:
         path: ~/image-cache
@@ -36,7 +37,7 @@ jobs:
         chmod +x ./compile.sh
         docker run --rm -v "$(pwd):/home/porter/app" --name maths --user root --hostname latex latex ./compile.sh ./calcmem.tex
         mkdir -p ./pdfs
-        cp builds/*.pdf ./pdfs
+        cp build/*.pdf ./pdfs
         touch ./pdfs/.nojekyll
 
     - name: Deploy 🚀
