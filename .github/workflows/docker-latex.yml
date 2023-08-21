@@ -16,8 +16,8 @@ jobs:
       run: docker build . --file Dockerfile --tag latex:$(date +%s)
 
     - name: Build pdf using docker image
-      run: docker run -it --rm -v "$(pwd):/home/porter/app" --name maths --hostname math latex ./compile.sh ./calcmem.tex
       run: |
+        docker run -it --rm -v "$(pwd):/home/porter/app" --name maths --hostname math latex ./compile.sh ./calcmem.tex
         mkdir -p ./pdfs
         cp builds/*.pdf ./pdfs
         touch ./pdfs/.nojekyll
