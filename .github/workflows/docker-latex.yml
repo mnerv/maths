@@ -12,12 +12,24 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag latex:$(date +%s)
+
+    - id: Image Cache
+      uses: actions/cache@v3
+      with:
+        path: ~/images
+        key: images-${{ runner.os }}
+
+    - if: steps.images.outputs.cache-hit != 'true'
+      run: |
+        docker build . --file Dockerfile --tag latex
+        docker save -o ~/images/latex.tar alpine
+
+    - if: steps.image-cache.outputs.cache-hit != 'true'
+      run: docker load -i ~images/latex.tar
 
     - name: Build pdf using docker image
       run: |
-        docker run -it --rm -v "$(pwd):/home/porter/app" --name maths --hostname math latex ./compile.sh ./calcmem.tex
+        docker run --rm -v "$(pwd):/home/porter/app" --name maths --hostname math latex ./compile.sh ./calcmem.tex
         mkdir -p ./pdfs
         cp builds/*.pdf ./pdfs
         touch ./pdfs/.nojekyll
