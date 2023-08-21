@@ -25,7 +25,7 @@ jobs:
       if: steps.image-cache.outputs.cache-hit != 'true'
       run: |
         docker build . --file Dockerfile --tag latex
-        docker save -o ~/image-cache/latex.tar alpine
+        docker save -o ~/image-cache/latex.tar latex
 
     - name: Load docker image from cache
       if: steps.image-cache.outputs.cache-hit == 'true'
