@@ -14,7 +14,7 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 # Install plugins in headless mode and quit
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
-# Set safe directory for git
+# git configuration
 git config --global --add safe.directory /home/porter/app
 git config --global core.autocrlf true
 
@@ -24,6 +24,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 # Change default shell to zsh
 echo "" | chsh -s $(which zsh)
 
-# Zsh config
+# zsh config
 echo "export SHELL=$(which zsh)" >> ~/.zshrc
 echo "export EDITOR=nvim" >> ~/.zshrc
+echo "alias ls=exa" >> ~/.zshrc
+echo "alias cat='bat -p --paging=never'" >> ~/.zshrc
+
