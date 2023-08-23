@@ -16,6 +16,7 @@ nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 # Set safe directory for git
 git config --global --add safe.directory /home/porter/app
+git config --global core.autocrlf true
 
 # Install zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
