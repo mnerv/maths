@@ -5,6 +5,8 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{gensymb}
+\usepackage{spalign}
+\usepackage{xfrac}
 \usepackage{parskip}
 \usepackage[style=ieee,backend=biber]{biblatex}
 \usepackage[breaklinks=true,bookmarks=true,hidelinks]{hyperref}
@@ -107,6 +109,7 @@ Motsvarande \textit{subtraktionsformler}. (p.149)
     \sin(x - y) &= \sin x \cos y - \cos x \sin y.
 \end{align}
 
+\newpage
 \section{Gränsvärden}
 
 \subsection{Standardgränsvärden (p.194)}
@@ -123,6 +126,7 @@ Motsvarande \textit{subtraktionsformler}. (p.149)
     &\lim_{x \to 0} x^\alpha \ln x = 0 \quad &(\alpha > 0).
 \end{align}
 
+\newpage
 \subsection{Derivata av elementära funktioner (p.219)}
 
 \begin{align}
@@ -202,6 +206,7 @@ Motsvarande \textit{subtraktionsformler}. (p.149)
 
 \textit{för något $\beta$ mellan $a$ och $x$.} (p.275)
 
+\newpage
 \section{Integraler}
 
 \subsection{Räknelagar för integraler (p.311)}
@@ -223,6 +228,7 @@ Motsvarande \textit{subtraktionsformler}. (p.149)
     \int_a^b{f(x)g(x)}dx = \left [F(x)g(x)\right ]_a^b - \int_a^b{F(x)g'(x)}dx.
 \end{equation}
 
+\newpage
 \section{Differentialekvaioner}
 
 \subsection{Separabla ekvationer (p.365)}
@@ -236,6 +242,72 @@ för några funktioner $g$ och $h$, kallas \textbf{separabla}. Exempel på såda
 \begin{equation}
     e^{2y(x)} \cdot y'(x) = x, \quad \frac{y(x) + 1}{y(x) - 1} \cdot y'(x) = e^x - x \quad \text{och} \quad y'(x) = -k\sqrt{y(x)}.
 \end{equation}
+
+\subsection{Ekvationer av andra ordningen}
+
+\subsubsection{Linjära ekvationer} (p.369)
+
+En \textbf{linjär differentialekvation av andra ordningen} ser ut på följande sätt:
+
+\begin{equation}
+    y'' + a(x)y' + b(x)y = h(x).
+\end{equation}
+
+\textbf{Exempel 15.14}
+
+\begin{align}
+    y'' = \sin x \qquad &\Leftrightarrow \qquad  y' = \int \sin x dx = -\cos x + C\\
+                 \qquad &\Leftrightarrow \qquad y = \int (-\cos x + C) dx = -\sin x + Cx + D,
+\end{align}
+
+där $C$ och $D$ är godtyckliga konstanter. Observera att den allmänna lösningen nu innehåller \textit{två} konstanter.
+
+\textbf{Sats 15.1}. \textit{Antag att $y_p$ är en lösning till ekvationen} (p.370)
+
+\begin{equation}
+    y'' + a(x)y' + b(x)y = h(x).
+    \label{eq:diff_2ord_sats}
+\end{equation}
+
+\textit{Då ges samtliga lösningar till (\ref{eq:diff_2ord_sats}) av}
+
+\begin{equation}
+    y = y_h + y_p,
+\end{equation}
+
+\textit{där $y_h$ betecknar alla lösningar till motsvarande homogena ekvation $y'' + a(x)y' + b(x)y = 0$.}
+
+\newpage
+\subsubsection{Linjära inhomogena ekvationer} (p.385)
+
+\textbf{Exempel 15.28}. Vi vill lösa begynnelsevärdesproblemet
+
+\begin{equation}
+    y'' - y' - 2y = x^2 - x - 2, \qquad y(0) = 1, \quad y'(0) = -3.
+\end{equation}
+
+Själva differentialekvationen är samma som den i Exempel 15.27, med lösningarna $y = C_1e^{-x} + C_2e^{2x}-\frac{1}{2}x^2 + x$. Det som återstår är att bestämma konstanterna med hjälp av begynnelsevilkoren:
+
+\begin{align}
+    y  = C_1e^{-x} + C_2e^{2x} - \tfrac{1}{2}x^2 + x \quad &\Rightarrow \quad y(0)  = C_1 + C_2 - 0 + 0 = 1,\\
+    y' = -C_1e^{-x} + 2C_2e^{2x} - x + 1             \quad &\Rightarrow \quad y'(0) = -C_1 + 2C_2 - 0 + 1 = -3.
+\end{align}
+
+Detta ger systemet
+
+\begin{equation}
+    \spalignsys{
+         C_1 +  C_2 =  1;
+        -C_1 + 2C_2 = -4
+    }
+    \qquad \Leftrightarrow \qquad
+    \spalignsys{
+        C_1 = 2;
+        C_2 = -1
+    }.
+\end{equation}
+
+Vi får den entydiga lösningen $y(x) = 2e^{-x} - e^{2x} - \tfrac{1}{2}x^2 + x$.
 
 \end{document}
 
