@@ -14,3 +14,9 @@ docker build -t latex .
 docker run -it -v "$(pwd):/home/porter/app" --hostname latex latex
 ```
 
+## Resources
+
+  - Inner product space - <https://en.wikipedia.org/wiki/Inner_product_space>
+  - Tensor - <https://en.wikipedia.org/wiki/Tensor>
+  - Lissajous curve - <https://en.wikipedia.org/wiki/Lissajous_curve>
+
