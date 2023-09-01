@@ -283,11 +283,56 @@ Motsvarande \textit{subtraktionsformler}. (p.149)
 
 
 \begin{equation}
-    R_{n + 1}(x) = \frac{f^{(n + 1)(\epsilon)}}{(n +  1)!}x^{n + 1}
+    R_{n + 1}(x) = \frac{f^{(n + 1)}(\xi)}{(n +  1)!}x^{n + 1}
     \label{eq:maclaurinpolynom_rest}
 \end{equation}
 
 \textit{för något $\epsilon$ mellan $0$ och $x$}. (p.259)
+
+\textbf{Svagare form av restermen} (p.262)
+
+Det är inte alltid vi behöver restermen på formen
+
+\begin{equation}
+    R_{n + 1}(x) = \frac{f^{(n + 1)}(\xi)}{(n + 1)!}x^{n + 1},
+\end{equation}
+
+utan ibland räcker det att veta vilken \textit{storleksordning} denna har, dvs.\\ vilken potens av $x$ vi kan relatera den till.
+
+Enligt förutsättningarna i Maclaurins formel är $f^{(n + 1)}(x)$ kontinuerlig i en omgivning av punkten $x = 0$. Det följer speciellt att $f^{(n + 1)}(\xi)$ är begränsad då $x$, och således även $\xi$, är nära 0. (Kom ihåg att $\xi$ ligger mellan $0$ och $x$.) Inför vi beteckningen
+
+\begin{equation}
+    B(x) = \frac{f^{(n + 1)}(\xi)}{(n + 1)!}
+\end{equation}
+
+kan vi därför skriva $R_{n + 1}(x) = B(x)x^{n + 1}$, där $B(x)$ är en funktion som är begränsad nära $x = 0$. En restterm på denna mindre exakta form är fullt tillräcklig för att t.ex. beräkna gränsvärden i fallet $x \to 0$.
+
+
+\textbf{Exempel 11.5.}
+
+\[
+    \lim_{x \to 0} \frac{\cos x - 1}{x}
+\]
+
+Eftersom $D \cos x = -\sin x$ blir Maclaurinutvecklingen av ordning 1 till $\cos x$, med den enklare formen av restterm,
+
+\[
+    \cos x = \cos 0 - \sin 0 \cdot x + x^2 B(x) = 1 + x^2B(x)
+\]
+
+där $B(x)$ är begränsad nära $x = 0$. Vi får nu
+
+\[
+    \frac{\cos x - 1}{x} = \frac{1 + x^2B(x) - 1}{x} = \frac{x^2B(x)}{x} = xB(x).
+\]
+
+Då $B(x)$ är begränsad nära $x = 0$ gäller det att $xB(x) \to 0$ då $x \to 0$ (jämför Följdsats 9.1 på sida 180), så
+
+\[
+    \lim_{x \to 0} \frac{\cos x - 1}{x} = \lim_{x \to 0} xB(x) = 0,
+\]
+
+precis som vi tidigare sett.
 
 \subsection{Taylorutvecklingar}
 
