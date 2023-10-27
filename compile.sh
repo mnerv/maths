@@ -6,6 +6,11 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
+input=$1
+filename="$(basename "$input")"     # filename with extension
+filename_noext=${filename%.*}       # filename no extension
+outdir=build/"$(dirname "$input")"  # construct output directory
+
 spin() {
     sp='-\|/'
     while :
@@ -39,17 +44,13 @@ run() {
     info $exit_code "$stage"
 }
 
-input=$1
-filename=${input%.*}
-
 if [ ! -f "$input" ]; then
     printf "error: $input does not exist\n"
     exit 1
 fi
 
-mkdir -p build
-
-run "stage0" "pdflatex -halt-on-error -output-directory=build $input"
-run "stage1" "biber build/$filename"
-run "stage2" "pdflatex -halt-on-error -output-directory=build $input"
+mkdir -p $outdir
+run "stage0" "pdflatex -halt-on-error -output-directory=$outdir $input"
+run "stage1" "biber $outdir/$filename_noext"
+run "stage2" "pdflatex -halt-on-error -output-directory=$outdir $input"
 

@@ -4,14 +4,18 @@ Alpine container with LaTeX and neovim installation.
 
 ## Build
 
+Build docker image.
+
 ```sh
 docker build -t latex .
 ```
 
 ## Run
 
+Start latex docker image.
+
 ```sh
-docker run -it -v "$(pwd):/home/porter/app" --hostname latex latex
+docker run -it -v "$(pwd):/home/porter/app" --hostname latex --name maths latex
 ```
 
 ## Resources
