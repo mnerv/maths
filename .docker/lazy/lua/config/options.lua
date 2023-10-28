@@ -5,8 +5,8 @@ vim.opt.listchars = 'tab:›  ,trail:~,extends:>,precedes:<,space:∙'
 vim.opt.clipboard = "" -- Don't sync with system clipboard
 vim.opt.showmode = true
 
-vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true })
+vim.o.linebreak = true   -- Break at convenient place
+vim.o.wildmenu  = true   -- Command line completion mode
+vim.o.wildmode  = "full" -- Command line completion mode
 
-vim.o.wildmenu = true    -- Command line completion mode
-vim.o.wildmode = 'full'  -- Command line completion mode
-
+vim.g.autoformat = false

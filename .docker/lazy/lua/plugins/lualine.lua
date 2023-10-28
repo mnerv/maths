@@ -4,7 +4,7 @@ return {
     event = "VeryLazy",
     opts = function()
       local icons = require("lazyvim.config").icons
-      local Util = require("lazyvim.util")
+      local ui_util = require("lazyvim.util").ui
 
       return {
         options = {
@@ -40,21 +40,21 @@ return {
             {
               function() return require("noice").api.status.command.get() end,
               cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-              color = Util.fg("Statement"),
+              color = ui_util.fg("Statement"),
             },
             -- stylua: ignore
             {
               function() return require("noice").api.status.mode.get() end,
               cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-              color = Util.fg("Constant"),
+              color = ui_util.fg("Constant"),
             },
             -- stylua: ignore
             {
               function() return "  " .. require("dap").status() end,
               cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
-              color = Util.fg("Debug"),
+              color = ui_util.fg("Debug"),
             },
-            { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = Util.fg("Special") },
+            { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = ui_util.fg("Special") },
             {
               "diff",
               symbols = {

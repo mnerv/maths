@@ -7,22 +7,9 @@ RUN apk update && apk upgrade;\
     adduser porter wheel;\
     echo "permit persist :wheel" > "/etc/doas.d/doas.conf"
 
-RUN apk add --no-cache \
-    curl \
-    git \
-    neofetch \
-    neovim \
-    neovim-doc \
-    openssh \
-    tmux \
-    wget \
-    ripgrep \
-    nodejs \
-    shadow \
-    htop \
-    exa \
-    bat \
-    zsh
+# Run system config script
+COPY .docker/config.sh /root/config.sh
+RUN sh /root/config.sh
 
 # Neovim config
 RUN mkdir -p /root/.config/nvim

@@ -42,10 +42,7 @@ jobs:
 
     - name: Build pdf using docker image
       run: |
-        chmod +x ./compile.sh
-        docker run --rm -v "$(pwd):/home/porter/app" --name maths --user root --hostname latex latex ./compile.sh ./calcmem.tex
-        mkdir -p ./pdfs
-        cp build/*.pdf ./pdfs
+        docker run --rm -v "$(pwd):/home/porter/app" --name maths --user root --hostname latex latex sh ./deploy.sh -p
 
     - name: Upload site artifact
       uses: actions/upload-pages-artifact@v2

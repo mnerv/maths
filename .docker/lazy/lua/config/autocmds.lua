@@ -20,6 +20,3 @@ vim.api.nvim_command("autocmd BufRead,BufNewFile *.tex set wrap")
 vim.api.nvim_command("autocmd BufRead,BufNewFile *.tex set linebreak")
 vim.api.nvim_command("autocmd BufRead,BufNewFile *.md set wrap")
 vim.api.nvim_command("autocmd BufRead,BufNewFile *.md set linebreak")
-
--- Escape from insert mode in terminal
-vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
