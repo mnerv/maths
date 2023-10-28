@@ -3,11 +3,16 @@ name: Build PDFs and Deploy
 on:
   push:
     branches: [ "trunk" ]
-      #  pull_request:
-      #    branches: [ "trunk" ]
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -41,12 +46,20 @@ jobs:
         docker run --rm -v "$(pwd):/home/porter/app" --name maths --user root --hostname latex latex ./compile.sh ./calcmem.tex
         mkdir -p ./pdfs
         cp build/*.pdf ./pdfs
-        touch ./pdfs/.nojekyll
 
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@v4
+    - name: Upload site artifact
+      uses: actions/upload-pages-artifact@v2
       with:
-        BRANCH: gh-pages # The branch the action should deploy to.
-        FOLDER: pdfs     # The folder the action should deploy.
-        CLEAN: true      # Automatically remove deleted files from the deploy branch
+        path: "pdfs${{ steps.pages.outputs.base_path }}"
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
 
