@@ -15,7 +15,7 @@ docker build -t latex .
 Start latex docker image.
 
 ```sh
-docker run -it -v "$(pwd):/home/porter/app" --hostname latex --name maths latex
+docker run -it --rm -v "$(pwd):/home/porter/app" --hostname latex --name maths latex
 ```
 
 ## Resources
