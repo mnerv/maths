@@ -23,4 +23,3 @@ docker run -it --rm -v "$(pwd):/home/porter/app" --hostname latex --name maths l
   - Inner product space - <https://en.wikipedia.org/wiki/Inner_product_space>
   - Tensor - <https://en.wikipedia.org/wiki/Tensor>
   - Lissajous curve - <https://en.wikipedia.org/wiki/Lissajous_curve>
-

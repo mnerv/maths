@@ -7,6 +7,7 @@ is_clean=false
 is_parallel=false
 is_production=false
 build_dir=build
+dist_directory=dist
 
 while [ $# -gt 0 ]; do  # Check if total number of args is greater than 0
   key="$1"              # Get the first argument
@@ -20,11 +21,14 @@ while [ $# -gt 0 ]; do  # Check if total number of args is greater than 0
     --clean)
       is_clean=true
       ;;
-    --parallel | -p)
+    --parallel | -j)
       is_parallel=true
       ;;
-    --production)
+    --production | -p)
       is_production=true
+      ;;
+    --dist-dir=*)
+      dist_directory="${key#*=}"
       ;;
   esac
   # Shift the arguments to the left
@@ -34,17 +38,19 @@ done
 index_registry="$build_dir/registry.txt"
 pdflatex_directory="$build_dir/latex"
 pdf_directory=$build_dir/pdf
-dist_directory=_dist
 
 if [ "$is_help" = true ]; then
   printf "usage: $arg0 [options]\n"
   printf "\n"
   printf "options:\n"
-  printf "  -h, --help        Show this menu.\n"
-  printf "  --dry-run         Dry run the commands.\n"
-  printf "  --clean           Clean the output directories build and pdfs before\n"
-  printf "                    compiling.\n"
-  printf "  -p, --parallel    Compile in parallel using parallel.\n"
+  printf "  -h, --help          Show this menu.\n"
+  printf "  --dry-run           Dry run the commands.\n"
+  printf "  --clean             Clean the output directories build and pdfs before\n"
+  printf "                      compiling.\n"
+  printf "  -j, --parallel      Compile in parallel using parallel.\n"
+  printf "  -p, --production    Create pdf in distribution directory.\n"
+  printf "  --dist-dir          Specify dist directory,\n"
+  printf "                      example: --dist-dir=\"dist\". Default: dist.\n"
   exit 0
 fi
 

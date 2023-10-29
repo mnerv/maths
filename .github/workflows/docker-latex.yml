@@ -42,12 +42,21 @@ jobs:
 
     - name: Build pdf using docker image
       run: |
-        docker run --rm -v "$(pwd):/home/porter/app" --name maths --user root --hostname latex latex sh ./deploy.sh -p
+        docker run --rm -v "$(pwd):/home/porter/app" --name maths --user root --hostname latex latex sh ./deploy.sh -j -p
+
+    - name: Build webapp
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20.8.0
+      run: |
+        npm install -g pnpm
+        pnpm i
+        pnpm build
 
     - name: Upload site artifact
       uses: actions/upload-pages-artifact@v2
       with:
-        path: "_dist${{ steps.pages.outputs.base_path }}"
+        path: "dist${{ steps.pages.outputs.base_path }}"
 
   deploy:
     environment:
