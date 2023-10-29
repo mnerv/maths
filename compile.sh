@@ -5,6 +5,7 @@ is_help=false
 is_output=true
 is_no_spin=false
 is_dry_run=false
+build_dir="build"
 
 usage_info() {
   printf "usage: $arg0 [options] <file.tex>\n"
@@ -14,6 +15,9 @@ usage_info() {
   printf "  --dry-run    Dry run the commands.\n"
   printf "  --no-output  Don't output stage logs.\n"
   printf "  --no-spin    No spin animations.\n"
+  printf "  --outdir     Specify output directory. Example: \n"
+  printf "               --outdir=\"build\", --outdir \"build\".\n"
+  printf "               Default: build.\n"
 }
 
 # Check if file is given
@@ -28,21 +32,25 @@ while [ $# -gt 0 ]; do  # Check if total number of args is greater than 0
     --help | -h)
       is_help=true
       ;;
+    --dry-run)
+      is_dry_run=true
+      ;;
     --no-output | -no)
-      # Set the rebuild flag to true
       is_output=false
       ;;
     --no-spin | -ns)
-      # Set the rebuild flag to true
       is_no_spin=true
       ;;
-    --dry-run)
-      # Set the rebuild flag to true
-      is_dry_run=true
+    --outdir=*)
+      build_dir="${key#*=}"
+      ;;
+    --outdir)
+      shift
+      build_dir=$1
       ;;
     *)
       # Assume any other argument is a filename
-      input="$1"
+      input=$key
       ;;
   esac
   # Shift the arguments to the left
@@ -66,9 +74,9 @@ if [ ! -f "$input" ]; then
   exit 1
 fi
 
-filename="$(basename "$input")"   # filename with extension
-filename_noext=${filename%.*}   # filename no extension
-outdir=build/"$(dirname "$input")"  # construct output directory
+filename="$(basename "$input")"          # filename with extension
+filename_noext=${filename%.*}            # filename no extension
+outdir=$build_dir/"$(dirname "$input")"  # construct output directory
 
 spin() {
   sp='-\|/'
@@ -112,12 +120,14 @@ run() {
   fi
 }
 
-mkdir -p $outdir
+if [ "$is_dry_run" = false ]; then
+  mkdir -p $outdir
+fi
 if [ "$is_no_spin" = true ] && [ "$is_dry_run" = false ]; then
   printf "compiling $input..."
 fi
 if [ "$is_dry_run" = true ]; then
-  printf "compiling $input\n"
+  printf "compiling $input -> $outdir\n"
 else
   run "stage0" "pdflatex -halt-on-error -output-directory=$outdir $input"
   run "stage1" "biber $outdir/$filename_noext"

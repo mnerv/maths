@@ -47,7 +47,7 @@ jobs:
     - name: Upload site artifact
       uses: actions/upload-pages-artifact@v2
       with:
-        path: "pdfs${{ steps.pages.outputs.base_path }}"
+        path: "_dist${{ steps.pages.outputs.base_path }}"
 
   deploy:
     environment:

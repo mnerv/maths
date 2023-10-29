@@ -5,6 +5,8 @@ is_help=false
 is_dry_run=false
 is_clean=false
 is_parallel=false
+is_production=false
+build_dir=build
 
 while [ $# -gt 0 ]; do  # Check if total number of args is greater than 0
   key="$1"              # Get the first argument
@@ -21,10 +23,18 @@ while [ $# -gt 0 ]; do  # Check if total number of args is greater than 0
     --parallel | -p)
       is_parallel=true
       ;;
+    --production)
+      is_production=true
+      ;;
   esac
   # Shift the arguments to the left
   shift
 done
+
+index_registry="$build_dir/registry.txt"
+pdflatex_directory="$build_dir/latex"
+pdf_directory=$build_dir/pdf
+dist_directory=_dist
 
 if [ "$is_help" = true ]; then
   printf "usage: $arg0 [options]\n"
@@ -38,24 +48,33 @@ if [ "$is_help" = true ]; then
   exit 0
 fi
 
+exec_cmd() {
+  local cmd=$1
+  if [ "$is_dry_run" = false ] && ! [ -z "$cmd" ]; then
+    eval $cmd
+  else
+    printf "$cmd\n"
+  fi
+}
+
 if [ "$is_clean" = true ]; then
-  rm -rf build
-  rm -rf pdfs
+  exec_cmd "rm -rf $build_dir"
+  exec_cmd "rm -rf $dist_directory"
 fi
 
-mkdir -p build
+mkdir -p $build_dir
+mkdir -p $pdflatex_directory
 
-# Build pdfs
 # Add files
-printf "" > build/tmp
-find "./analysb" | grep .tex >> build/tmp
-echo "./calcmem.tex" >> build/tmp
+printf "" > $index_registry
+find ./analysb | grep .tex >> $index_registry
+echo ./calcmem.tex >> $index_registry
 
 # Compile
-printf "Compiling pdfs\n"
-count=$(cat build/tmp | wc -l)
-files=$(cat build/tmp)
-args="--no-spin --no-output"
+printf "Compiling pdfs to $pdflatex_directory\n"
+count=$(cat $index_registry | wc -l)
+files=$(cat $index_registry)
+args="--no-spin --no-output --outdir=$pdflatex_directory"
 if [ "$is_dry_run" = true ]; then
   args="${args} --dry-run"
 fi
@@ -68,26 +87,25 @@ else
   done
 fi
 
+
 # Post cleanup
-printf "Create pdf directories\n"
-mkdir -p pdfs
-dirs=$(cat build/tmp | sed -E "s/(.*)(\/.*)/\1/" | sort | uniq)
+printf "Create final pdf directories\n"
+mkdir -p $pdf_directory
+dirs=$(cat $index_registry | sed -E "s/(.*)(\/.*)/\1/" | sort | uniq)
 for dir in $dirs; do
-  if [ "$is_dry_run" = true ]; then
-    printf "mkdir pdfs/$dir\n"
-  else
-    mkdir -p "pdfs/$dir"
-  fi
+  exec_cmd "mkdir -p \"$pdf_directory/$dir\""
 done
 
-printf "Copy compiled pdf to pdfs directory\n"
-pdfs=$(cat build/tmp | sed -E "s/(.*)\.tex/\1.pdf/")
+printf "Copy compiled pdfs to $pdf_directory\n"
+pdfs=$(cat $index_registry | sed -E "s/(.*)\.tex/\1.pdf/")
 for pdf in $pdfs; do
   outdir=$(printf "$pdf\n" | sed -E "s/(.*)(\/.*)/\1/")
-  if [ "$is_dry_run" = true ]; then
-    printf "cp build/$pdf -> pdfs/$outdir\n"
-  else
-    cp "build/$pdf" "pdfs/$outdir"
-  fi
+  exec_cmd "cp $pdflatex_directory/$pdf $pdf_directory/$outdir"
 done
+
+if [ "$is_production" = true ]; then
+  mkdir -p $dist_directory
+  cp -rf $pdf_directory $dist_directory
+  cp $index_registry $dist_directory/pdf
+fi
 
