@@ -76,6 +76,8 @@ printf "" > $index_registry
 find ./analysb | grep .tex >> $index_registry
 echo ./calcmem.tex >> $index_registry
 
+printf "$(cat $index_registry)\n" | sort > $index_registry
+
 # Compile
 printf "Compiling pdfs to $pdflatex_directory\n"
 count=$(cat $index_registry | wc -l)
