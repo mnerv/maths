@@ -44,10 +44,12 @@ jobs:
       run: |
         docker run --rm -v "$(pwd):/home/porter/app" --name maths --user root --hostname latex latex sh ./deploy.sh -j -p
 
-    - name: Build webapp
+    - name: Setup node
       uses: actions/setup-node@v3
       with:
         node-version: 20.8.0
+
+    - name: Build webapp
       run: |
         npm install -g pnpm
         pnpm i
