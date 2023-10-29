@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
+arg0=$0
 is_help=false
 is_dry_run=false
 is_clean=false
@@ -9,32 +10,24 @@ while [ $# -gt 0 ]; do  # Check if total number of args is greater than 0
   key="$1"              # Get the first argument
   case $key in
     --help | -h)
-      # Set the rebuild flag to true
       is_help=true
       ;;
     --dry-run)
-      # Set the rebuild flag to true
       is_dry_run=true
       ;;
     --clean)
-      # Set the rebuild flag to true
       is_clean=true
       ;;
     --parallel | -p)
-      # Set the rebuild flag to true
       is_parallel=true
       ;;
-    # *)
-    #   # Assume any other argument is a filename
-    #   input="$1"
-    #   ;;
   esac
   # Shift the arguments to the left
   shift
 done
 
 if [ "$is_help" = true ]; then
-  printf "usage: $0 [options]\n"
+  printf "usage: $arg0 [options]\n"
   printf "\n"
   printf "options:\n"
   printf "  -h, --help        Show this menu.\n"
@@ -92,7 +85,7 @@ pdfs=$(cat build/tmp | sed -E "s/(.*)\.tex/\1.pdf/")
 for pdf in $pdfs; do
   outdir=$(printf "$pdf\n" | sed -E "s/(.*)(\/.*)/\1/")
   if [ "$is_dry_run" = true ]; then
-    printf "cp build/$pdf -> pdfs/$dir\n"
+    printf "cp build/$pdf -> pdfs/$outdir\n"
   else
     cp "build/$pdf" "pdfs/$outdir"
   fi
