@@ -40,10 +40,6 @@ jobs:
       if: steps.image-cache.outputs.cache-hit == 'true'
       run: docker load -i ~/image-cache/latex.tar
 
-    - name: Build pdf using docker image
-      run: |
-        docker run --rm -v "$(pwd):/home/porter/app" --name maths --user root --hostname latex latex sh ./deploy.sh -j -p
-
     - name: Setup node
       uses: actions/setup-node@v3
       with:
@@ -54,6 +50,10 @@ jobs:
         npm install -g pnpm
         pnpm i
         pnpm build
+
+    - name: Build pdf using docker image
+      run: |
+        docker run --rm -v "$(pwd):/home/porter/app" --name maths --user root --hostname latex latex sh ./deploy.sh -j -p
 
     - name: Upload site artifact
       uses: actions/upload-pages-artifact@v2
