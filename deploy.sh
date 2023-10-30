@@ -73,7 +73,7 @@ mkdir -p $pdflatex_directory
 
 # Add files
 printf "" > $index_registry
-find ./analysb | grep .tex >> $index_registry
+find ./analys_b | grep .tex >> $index_registry
 echo ./calcmem.tex >> $index_registry
 
 files=$(cat $index_registry)
