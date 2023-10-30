@@ -43,14 +43,14 @@ if [ "$is_help" = true ]; then
   printf "usage: $arg0 [options]\n"
   printf "\n"
   printf "options:\n"
-  printf "  -h, --help          Show this menu.\n"
-  printf "  --dry-run           Dry run the commands.\n"
-  printf "  --clean             Clean the output directories build and pdfs before\n"
-  printf "                      compiling.\n"
-  printf "  -j, --parallel      Compile in parallel using parallel.\n"
-  printf "  -p, --production    Create pdf in distribution directory.\n"
-  printf "  --dist-dir          Specify dist directory,\n"
-  printf "                      example: --dist-dir=\"dist\". Default: dist.\n"
+  printf "    -h, --help          Show this menu.\n"
+  printf "    --dry-run           Dry run the commands.\n"
+  printf "    --clean             Clean the output directories build and pdfs\n"
+  printf "                        before compiling.\n"
+  printf "    -j, --parallel      Compile in parallel using parallel.\n"
+  printf "    -p, --production    Create pdf in distribution directory.\n"
+  printf "    --dist-dir          Specify dist directory,\n"
+  printf "                        example: --dist-dir=\"dist\". Default: dist.\n"
   exit 0
 fi
 
@@ -76,7 +76,8 @@ printf "" > $index_registry
 find ./analysb | grep .tex >> $index_registry
 echo ./calcmem.tex >> $index_registry
 
-printf "$(cat $index_registry)\n" | sort > $index_registry
+files=$(cat $index_registry)
+printf "$files\n" | sort > $index_registry
 
 # Compile
 printf "Compiling pdfs to $pdflatex_directory\n"

@@ -11,13 +11,13 @@ usage_info() {
   printf "usage: $arg0 [options] <file.tex>\n"
   printf "\n"
   printf "options:\n"
-  printf "  -h, --help   Show this menu.\n"
-  printf "  --dry-run    Dry run the commands.\n"
-  printf "  --no-output  Don't output stage logs.\n"
-  printf "  --no-spin    No spin animations.\n"
-  printf "  --outdir     Specify output directory. Example: \n"
-  printf "               --outdir=\"build\", --outdir \"build\".\n"
-  printf "               Default: build.\n"
+  printf "    -h, --help     Show this menu.\n"
+  printf "    --dry-run      Dry run the commands.\n"
+  printf "    --no-output    Don't output stage logs.\n"
+  printf "    --no-spin      No spin animations.\n"
+  printf "    --outdir       Specify output directory,\n"
+  printf "                   example: --outdir=\"build\", --outdir \"build\".\n"
+  printf "                   Default: build.\n"
 }
 
 # Check if file is given
