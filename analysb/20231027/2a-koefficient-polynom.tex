@@ -24,5 +24,38 @@
 
 \begin{document}
 Vad är koefficienten för $x^5$ i polynomet $(x + 2)^8$?
+
+\noindent\rule{\textwidth}{0.5pt}
+
+\textbf{Binomialkoefficient} (s.56)
+
+\[
+    \binom{n}{k} = \frac{n!}{k!(n - k)!} = \frac{n \cdot (n - 1) \cdot ... \cdot (n - k + 1)}{k \cdot (k - 1) \cdot ... \cdot 1}
+\]
+
+\textbf{Sats 4.3}: (Binomialsatsen). \textit{För varje heltal} $n \leq 0$ \textit{gäller} (s.57)
+
+\[
+    (a + b)^n = a^n + \tbinom{n}{1}a^{n - 1}b^1 + \tbinom{n}{2}a^{n - 2}b^2 + ... + \tbinom{n}{n - 1}a^1 b^{n - 1} + b^n.
+\]
+
+Lösning:
+
+\[
+    (x + 2)^8 = x^8 + \tbinom{8}{1}x^7 \cdot 2^1 + \tbinom{8}{2}x^6 \cdot 2^2 + \tbinom{8}{3}x^5 \cdot 2^3 + \tbinom{8}{4}x^4 \cdot 2^4 + \tbinom{8}{5}x^3 \cdot 2^5 + \tbinom{8}{6}x^2 \cdot 2^6 + \tbinom{8}{7}x^1 \cdot 2^7 + 2^8
+\]
+
+Vi är intresserad i $\tbinom{8}{3}x^5 \cdot 2^3$.
+
+\begin{align*}
+    \tbinom{8}{3}x^5 \cdot 2^3 &= \frac{8!}{3!(8 - 3)!} \cdot x^5 \cdot 2^3\\
+    &= \frac{8 \cdot 7 \cdot 6 \cdot 5!}{3! \cdot 5!} \cdot 8x^5\\
+    &= \frac{8 \cdot 7 \cdot 6 }{3 \cdot 2 \cdot 1} \cdot 8x^5\\
+    &= 4 \cdot 7 \cdot 2 \cdot 8x^5\\
+    &= 448x^5
+\end{align*}
+
+Svar: $448x^5$
+
 \end{document}
 
