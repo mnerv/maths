@@ -47,9 +47,8 @@ jobs:
 
     - name: Build webapp
       run: |
-        npm install -g pnpm
-        pnpm i
-        pnpm build
+        npm i
+        npm run build
 
     - name: Build pdf using docker image
       run: |
