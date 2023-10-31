@@ -29,7 +29,7 @@ Bestäm alla $x$ för vilka den geometriska serien
 \]
 är konvergent och beräkna summan.
 
-\rule{\textwidth}{0.5pt}
+\noindent\rule{\textwidth}{0.5pt}
 
 \[
     S_n = \sum_{k = 0}^{n - 1} a_0 \cdot q^k = a_0 \frac{q^n - 1}{q - 1} = a_0 \frac{1 - q^n}{1 - q}
@@ -43,22 +43,32 @@ Om $|q| < 1$:
 
 Lösning:
 
-För att serien skall vara konvergent krävs det att
-
-\begin{align*}
-    |x - 1| &< 1\\
-    |x| &< 2
-\end{align*}
-
-Beräkna fram $S_n$ för $|x| < 2$. $k = 0$
-
 \[
-    a_0 = \frac{2^0}{(x - 1)^0} = 1
+    \sum_{k = 0}^{\infty} \frac{2^k}{(x - 1)^k} = \sum_{k = 0}^{\infty} \left(\frac{2}{x - 1}\right)^k
 \]
 
+$a_0 = 1$, $k = 0$
+
 \[
-    \frac{1}{1 - (x - 1)} = \frac{1}{2 - x}, \quad |x| < 2
+    q^0 = \left(\frac{2}{x - 1}\right)^0 = 1
 \]
+
+% För att serien skall vara konvergent krävs det att
+%
+% \begin{align*}
+%     |x - 1| &< 1\\
+%     |x| &< 2
+% \end{align*}
+%
+% Beräkna fram $S_n$ för $|x| < 2$. $k = 0$
+%
+% \[
+%     a_0 = \frac{2^0}{(x - 1)^0} = 1
+% \]
+%
+% \[
+%     \frac{1}{1 - (x - 1)} = \frac{1}{2 - x}, \quad |x| < 2
+% \]
 
 % \[
 %     \sum_{k = 0}^{\infty} \frac{2^k}{(x - 1)^k} = 

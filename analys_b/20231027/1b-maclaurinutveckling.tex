@@ -22,10 +22,54 @@
 }
 \setcounter{secnumdepth}{0}  % Disable section numbering
 
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
+
 \begin{document}
 Med hjälp av Maclaurinutveckling beräkna följande gränsvärdet
+
 \[
-  \lim_{x \to 0} \frac{e^{2x} - 1 - \sin(2x)}{\cos(3x) - 1}.
+    \lim_{x \to 0} \frac{e^{2x} - 1 - \sin(2x)}{\cos(3x) - 1}.
 \]
+
+\noindent\rule{\textwidth}{0.5pt}
+
+\textbf{Maclaurinutveckling restermen}
+
+\[
+    f(x) = f(0) + f'(0)x + \frac{f''(0)}{2!}x^2 + \frac{f^{(3)}(0)}{3!}x^3 +\ ...\ + \frac{f^{(n)}(0)}{n!}x^n + R_{n + 1}(xA,)
+\]
+
+\textit{där}
+
+
+\[
+    R_{n + 1}(x) = \frac{f^{(n + 1)}(\xi)}{(n +  1)!}x^{n + 1}
+\]
+
+\textit{för något $\xi$ mellan $0$ och $x$}. (p.259)
+
+\textbf{Svagare form av resttermen}
+
+\[
+    B(x) = \frac{f^{(n + 1)}(\xi)}{(n + 1)!}
+\]
+
+Lösning:
+
+\circled{1}.%
+\begin{minipage}[t]{5cm}
+    \setlength{\abovedisplayskip}{0pt}
+    \setlength{\belowdisplayskip}{0pt}
+    \setlength{\abovedisplayshortskip}{0pt}
+    \setlength{\belowdisplayshortskip}{0pt}
+    \begin{align*}
+        f(x)  &= e^{2x} &\Rightarrow\quad f(0) = 1\\
+        f'(x) &= 2e^{2x} &\Rightarrow\quad f'(0) = 2\\
+        f'(x) &= 2e^{2x} &\Rightarrow f'(0) = 2\\
+    \end{align*}
+\end{minipage}
+
+
 \end{document}
 
