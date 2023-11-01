@@ -5,20 +5,21 @@
 
   export let tree: NodeT
   let isCollapse = true
+  
   onMount(async () => {
     const collapse = localStorage.getItem(tree.key)
     if (collapse) isCollapse = JSON.parse(collapse)
   })
 </script>
 
-<File title={tree.name} level={tree.level} href={tree.href} on:click={
-  () =>{
+<File title={tree.name} level={tree.level} href={tree.href} info={`${tree.children.length}`} on:click={() => {
     isCollapse = !isCollapse
     localStorage.setItem(tree.key, JSON.stringify(isCollapse))
   }
 }/>
+
 {#if Array.isArray(tree.children)}
-<div class="{isCollapse ? 'max-h-0' : 'max-h-max'} overflow-hidden">
+<div class="overflow-hidden {isCollapse ? 'max-h-0' : 'max-h-max'}">
   {#each tree.children as child}
     <svelte:self tree={child} />
   {/each}

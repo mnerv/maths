@@ -4,9 +4,7 @@
   import FileTree from './FileTree.svelte';
   import { pathsToFileTree, type NodeT } from './FileTree';
 
-  let pdfs: string[] = []
-  let isCollapse = true
-
+  let registry: string[] = []
   let trees: NodeT[] = []
 
   onMount(async () => {
@@ -22,9 +20,8 @@
       .catch(_ => [])
 
     if (links.length === 0) return
-    pdfs = links
-
-    trees = pathsToFileTree(links)
+    registry = links
+    trees = pathsToFileTree(registry)
   })
 </script>
 
