@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import File from './File.svelte';
   import FileTree from './FileTree.svelte';
-  import { pathsToFileTree, type NodeT } from './FileTree';
+  import { pathsToFileTree, type NodeT, sortByType } from './FileTree';
 
   let registry: string[] = []
   let trees: NodeT[] = []
@@ -22,6 +22,7 @@
     if (links.length === 0) return
     registry = links
     trees = pathsToFileTree(registry)
+    trees = sortByType(trees)
   })
 </script>
 

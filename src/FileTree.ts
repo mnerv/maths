@@ -7,6 +7,16 @@ export type NodeT = {
   children: NodeT[]
 }
 
+export function sortByType(list: NodeT[]): NodeT[] {
+  const directory = list.filter(a => a.href === '')
+  const files = list.filter(a => a.href !== '')
+  return [...directory, ...files]
+}
+
+export function sortByName(list: NodeT[]): NodeT[] {
+  return list.sort()
+}
+
 // Trie: https://en.wikipedia.org/wiki/Trie
 function findNodeT(tree: NodeT[], key: string): NodeT | null {
   for (const node of tree) {
@@ -43,9 +53,12 @@ export function pathsToFileTree(paths: string[]): NodeT[] {
     let parent: NodeT | null = null
     for (let i = 0; i < sep.length; ++i) {
       key += '/' + sep[i]
+      const name = sep[i].split('_')
+                   .map(v => v[0].toUpperCase() + v.slice(1, v.length)).join(' ')
+                   .split('-').map(v => v[0].toUpperCase() + v.slice(1, v.length)).join('. ')
       const node: NodeT = {
         key: key,
-        name: sep[i].split('_').map(v => v[0].toUpperCase() + v.slice(1, v.length)).join(' '),
+        name: name,
         level: i,
         href: i === sep.length - 1 ? path : '',
         parent: parent,
