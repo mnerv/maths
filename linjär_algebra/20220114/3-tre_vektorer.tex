@@ -1,0 +1,34 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}     % Fix weird character
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{spalign}
+\usepackage{xfrac}
+\usepackage{parskip}
+\usepackage{float}  % figure[H]
+\usepackage[style=ieee,backend=biber]{biblatex}
+\usepackage[breaklinks=true,bookmarks=true,hidelinks]{hyperref}
+\usepackage{tikz}
+\usepackage{enumitem}
+
+\geometry{
+    a4paper,
+    hmargin=2.54cm,
+    tmargin=1.27cm,
+    bmargin=1.27cm,
+    includeheadfoot
+}
+\setcounter{secnumdepth}{0}  % Disable section numbering
+
+\begin{document}
+Låt vektorerna $\mathbf{u} = (2, 3, -1)$, $\mathbf{v} = (1, -1, 2)$ och $w = (3, 2, 2)$ vara givna.
+\begin{enumerate}[label=(\alph*)]
+    \item Bestäm arean av det parallellogram som spänns upp av $\mathbf{u}$ och $\mathbf{v}$.
+    \item Visa att vektorerna $\mathbf{u}$, $\mathbf{v}$, och $\mathbf{w}$ utgör en bas i $\mathbb{R}^3$.\\
+        Ange även om de är positivt eller negativt orienterade i den uppräknade ordningen.
+\end{enumerate}
+\end{document}
+

@@ -1,0 +1,36 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}     % Fix weird character
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{spalign}
+\usepackage{xfrac}
+\usepackage{parskip}
+\usepackage{float}  % figure[H]
+\usepackage[style=ieee,backend=biber]{biblatex}
+\usepackage[breaklinks=true,bookmarks=true,hidelinks]{hyperref}
+\usepackage{tikz}
+\usepackage{enumitem}
+
+\geometry{
+    a4paper,
+    hmargin=2.54cm,
+    tmargin=1.27cm,
+    bmargin=1.27cm,
+    includeheadfoot
+}
+\setcounter{secnumdepth}{0}  % Disable section numbering
+
+\begin{document}
+Låt $\mathbf{F}$ vara den linjära avbildningen som svarar mot en spegling av $\mathbb{R}^2$:s vektorer i linjen\\
+$l : 3x + 4y = 0$.
+\begin{enumerate}[label=(\alph*)]
+    \item Bestäm en ortonormerad bas $\mathbf{e}'_1$, $\mathbf{e}'_2$ sådan att $\mathbf{e}'_1$ är parallell med $l$ och $\mathbf{e}'_2$ ortogonal mot $l$.
+    \item Bestäm avbildningsmatrisen $A'$ för $\mathbf{F}$ uttryckt i den nya basen $\mathbf{e}'_1$, $\mathbf{e}'_2$.
+    \item Uttryck vektorn $\mathbf{u} = (1, 2)$ i den nya basen.\\
+        Vad blir spegelbilden av $\mathbf{u}$ uttryckt i den nya basen?
+\end{enumerate}
+\end{document}
+

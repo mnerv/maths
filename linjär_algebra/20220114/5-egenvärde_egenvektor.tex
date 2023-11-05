@@ -1,0 +1,42 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}     % Fix weird character
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{spalign}
+\usepackage{xfrac}
+\usepackage{parskip}
+\usepackage{float}  % figure[H]
+\usepackage[style=ieee,backend=biber]{biblatex}
+\usepackage[breaklinks=true,bookmarks=true,hidelinks]{hyperref}
+\usepackage{tikz}
+\usepackage{enumitem}
+
+\geometry{
+    a4paper,
+    hmargin=2.54cm,
+    tmargin=1.27cm,
+    bmargin=1.27cm,
+    includeheadfoot
+}
+\setcounter{secnumdepth}{0}  % Disable section numbering
+
+\begin{document}
+\begin{enumerate}[label=(\alph*)]
+    \item Bestäm alla egenvärden och egenvektorer till den linjära avbildning vars matris är\\
+        \[
+            A = \begin{pmatrix}
+                3 & 1\\
+                4 & 3
+            \end{pmatrix}.
+        \]
+    \item Låt $\mathbf{F}$ vara den linjära avbildning som svarar mot en rotation av $\mathbb{R}^3$:s vektorer vinkeln $\frac{\pi}{2}$ i positiv riktning kring $z$-axeln.
+    \begin{enumerate}[label=\roman*.]
+        \item Ange avbildningsmatrisen för avbildningen.
+        \item Hur många reella egenvärden har avbildningen?
+    \end{enumerate}
+\end{enumerate}
+\end{document}
+

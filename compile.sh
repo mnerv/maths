@@ -136,4 +136,3 @@ fi
 if [ "$is_no_spin" = true ] && [ "$is_dry_run" = false ]; then
   printf "done!\n"
 fi
-
