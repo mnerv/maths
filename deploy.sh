@@ -75,6 +75,7 @@ mkdir -p $pdflatex_directory
 printf "" > $index_registry
 find ./analys_b | grep .tex >> $index_registry
 find ./linjär_algebra | grep .tex >> $index_registry
+find ./misc | grep .tex >> $index_registry
 
 files=$(cat $index_registry)
 printf "$files\n" | sort > $index_registry
