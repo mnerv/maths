@@ -1,9 +1,22 @@
 # Build output
+*.local
 build
+dist
+dist-ssr
+node_modules
+public/*.tar.gz
+public/pdf
 
-# Xcode
-*.xcworkspace
-*.xcodeproj
+# Editor directories and files
+!.vscode/extensions.json
+*.njsproj
+*.ntvs*
+*.sln
+*.suo
+*.sw?
+.DS_Store
+.idea
+.vscode/*
 
 # Visual Studio
 *.sln
@@ -28,32 +41,20 @@ compile_commands.json
 .idea
 
 # macOS
-.DS_Store
 .AppleDouble
+.DS_Store
 .LSOverride
 
 # Logs
-logs
 *.log
+lerna-debug.log*
+logs
 npm-debug.log*
+pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-public/pdf
+# Xcode
+*.xcworkspace
+*.xcodeproj
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?

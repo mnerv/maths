@@ -1,138 +1,268 @@
 #!/usr/bin/env sh
 
-arg0=$0
-is_help=false
-is_output=true
-is_no_spin=false
-is_dry_run=false
-build_dir="build"
+# Configs
+script_name=$0
+build_dir=build
+input_file=""
 
-usage_info() {
+# Arg flags
+is_skip_bitex=false
+is_dry_run=false
+is_no_cache=false
+is_no_spin=false
+
+# State flags
+is_cached=false
+has_input=false
+is_clean=false
+
+# Path variables
+filepath=""
+filename=""
+name=""
+ext=""
+rel_location=""
+latex_build_dir=""
+pdf_dir=""
+pdf_latex_dir=""
+abs_latex_build_dir=""
+abs_pdf_dir=""
+file_deps=""
+
+help() {
   printf "usage: $arg0 [options] <file.tex>\n"
   printf "\n"
   printf "options:\n"
-  printf "    -h, --help     Show this menu.\n"
-  printf "    --dry-run      Dry run the commands.\n"
-  printf "    --no-output    Don't output stage logs.\n"
-  printf "    --no-spin      No spin animations.\n"
-  printf "    --outdir       Specify output directory,\n"
-  printf "                   example: --outdir=\"build\", --outdir \"build\".\n"
-  printf "                   Default: build.\n"
+  printf "    -h, --help               Show this menu.\n"
+  printf "    --dry-run                Dry run the commands.\n"
+  printf "    --build-dir=<directory>  Specify build directory.\n"
+  printf "    --skip-bibtex            Skip generating bibtex.\n"
+  printf "    --no-cache               This action skips the cache check.\n"
+  # printf "    --no-spin                Disable spin status for compile steps.\n"
+  printf "    --clean                  Clean before build. This will remove\n"
+  printf "                             output pdf and the build intermediate steps.\n"
 }
 
-# Check if file is given
-if [ -z "$1" ]; then
-  usage_info
-  exit 1
-fi
+parse_args() {
+  if [[ $# = 0 ]]; then
+    printf "error: no input file\n"
+    help
+    exit 1
+  fi
 
-while [ $# -gt 0 ]; do  # Check if total number of args is greater than 0
-  key="$1"      # Get the first argument
-  case $key in
-    --help | -h)
-      is_help=true
+  while [[ $# -gt 0 ]]; do
+    key="$1"
+    case $key in
+      --help | -h)
+        help
+        exit 0
+        ;;
+      --dry-run)
+        is_dry_run=true
+        ;;
+      --build-dir=*)
+        build_dir="${key#*=}"
+        ;;
+      --skip-bibtex)
+        is_skip_bitex=true
+        ;;
+      --no-cache)
+        is_no_cache=true
+        ;;
+      --no-spin)
+        is_no_spin=true
+        ;;
+      --clean)
+        is_clean=true
+        ;;
+      *)
+        if [[ $has_input = true ]]; then
+          printf "Only one input file is allowed!\n"
+          exit 1
+        fi
+        # Assume any other argument is a filename
+        input_file=$key
+        has_input=true
       ;;
-    --dry-run)
-      is_dry_run=true
-      ;;
-    --no-output | -no)
-      is_output=false
-      ;;
-    --no-spin | -ns)
-      is_no_spin=true
-      ;;
-    --outdir=*)
-      build_dir="${key#*=}"
-      ;;
-    --outdir)
-      shift
-      build_dir=$1
-      ;;
-    *)
-      # Assume any other argument is a filename
-      input=$key
-      ;;
-  esac
-  # Shift the arguments to the left
-  shift
-done
-
-if [ "$is_help" = true ]; then
-  usage_info
-  exit 0
-fi
-
-# Check if the filename variable is empty
-if [ -z "$input" ]; then
-  printf "Error: No filename provided.\n"
-  usage_info
-  exit 1
-fi
-
-if [ ! -f "$input" ]; then
-  printf "error: $input does not exist\n"
-  exit 1
-fi
-
-filename="$(basename "$input")"          # filename with extension
-filename_noext=${filename%.*}            # filename no extension
-outdir=$build_dir/"$(dirname "$input")"  # construct output directory
-
-spin() {
-  sp='-\|/'
-  while :
-  do
-    printf "\rcompiling $1: ${sp:0:1}"
-    sp=${sp:1}${sp:0:1}
-    sleep 0.1
+    esac
+    shift
   done
 }
 
-info() {
-  printf "\r"
-  if [ $1 -ne 0 ]; then
-    printf "\rcompiling $2: failed, check build/$2.log\n"
-    cat build/$2.log | awk 'BEGIN{IGNORECASE = 1}/warning|!/,/^$/;'
+recursive_index() {
+  # Check if file exist before we analyze it
+  if ! [[ -e "$1" ]]; then
+    return 0
+  fi
+
+  _grep_regex='((input)|(includegraphics\[.*\])|(addbibresource))\{.+\}'
+  _replace_regex='s/\\((input)|(includegraphics\[.*\])|(addbibresource))\{(.+)\}/\5/'
+  _deps=$(cat "$1" | grep -E "$_grep_regex" | sed -r "$_replace_regex")
+
+  if ! [[ -z "$_deps" ]]; then
+    if ! [[ -z "$file_deps" ]]; then
+      file_deps="$file_deps\n$_deps"
+    else
+      file_deps="$_deps"
+    fi
+
+    for file in "$_deps"; do
+      filepath="$(dirname $1)/$file"
+      recursive_index $filepath
+    done
+  fi
+}
+
+prebuild() {
+  if ! [[ -e $input_file ]]; then
+    printf "File $input_file does not exist!\n"
     exit 1
-  else
-    printf "\rcompiling $2: done\n"
+  fi
+
+  filepath="$(realpath $input_file)"
+  filename="$(basename "$input_file")"
+  name="${filename%.*}"
+  ext="${filename##*.}"
+  rel_location="$(dirname $input_file)"
+  latex_build_dir="$build_dir/tex/$rel_location"
+  pdf_dir="$build_dir/pdf/$rel_location"
+
+  if ! [[ -e $build_dir ]]; then
+    mkdir -p $build_dir
+  fi
+
+  if ! [[ -e $latex_build_dir ]]; then
+    mkdir -p $latex_build_dir
+  elif [[ -e $latex_build_dir ]] && [[ $is_clean = true ]]; then
+    rm -rf $latex_build_dir
+    mkdir -p $latex_build_dir
+  fi
+
+  if ! [[ -e $pdf_dir ]]; then
+    mkdir -p $pdf_dir
+  elif [[ -e $pdf_dir ]] && [[ $is_clean = true ]]; then
+    rm -rf $pdf_dir
+    mkdir -p $pdf_dir
+  fi
+
+  # Convert output path to absolute
+  abs_latex_build_dir=$(realpath "$build_dir/tex/$rel_location")
+  abs_pdf_dir=$(realpath "$build_dir/pdf/$rel_location")
+  pdf_latex_dir="$abs_pdf_dir/$name"
+
+  if ! [[ -e "$pdf_latex_dir" ]]; then
+    mkdir -p "$pdf_latex_dir"
+  elif [[ -e $pdf_latex_dir ]] && [[ $is_clean = true ]]; then
+    rm -rf $pdf_latex_dir
+    mkdir -p "$pdf_latex_dir"
+  fi
+
+  # Generate local registry for dependencies
+  recursive_index $filepath
+  file_deps=$(printf "$file_deps\n" | sort -u)
+}
+
+parse_info() {
+  if [ $1 -ne 0 ]; then
+    printf "\r$2: failed, check $latex_build_dir/$2.log\n"
+    cat $abs_latex_build_dir/$2.log | awk 'BEGIN{IGNORECASE = 1}/warning|!|Runaway argument\?/,/^$/;'
+    exit 1
   fi
 }
 
-run() {
-  stage=$1
+exec_build_cmd() {
+  exec_name=$1
   cmd=$2
+  log_file="$abs_latex_build_dir/$exec_name.log"
 
-  log_file=/dev/null
-  if [ "$is_output" = true ]; then
-    log_file=./build/$stage.log
-  fi
-
-  if [ "$is_no_spin" = true ]; then
-    $cmd > $log_file
-  else
-    spin "$stage" &
-    spin_pid=$!
-    $cmd > $log_file
-    exit_code=$?
-    kill $spin_pid
-    info $exit_code "$stage"
-  fi
+  $cmd > $log_file
+  exit_code=$?
+  parse_info $exit_code "$exec_name"
 }
 
-if [ "$is_dry_run" = false ]; then
-  mkdir -p $outdir
-fi
-if [ "$is_no_spin" = true ] && [ "$is_dry_run" = false ]; then
-  printf "compiling $input..."
-fi
-if [ "$is_dry_run" = true ]; then
-  printf "compiling $input -> $outdir\n"
-else
-  run "stage0" "pdflatex -halt-on-error -output-directory=$outdir $input"
-  run "stage1" "biber $outdir/$filename_noext"
-  run "stage2" "pdflatex -halt-on-error -output-directory=$outdir $input"
-fi
-if [ "$is_no_spin" = true ] && [ "$is_dry_run" = false ]; then
+check_cache() {
+  is_cached=false
+
+  if ! [[ -e "$abs_pdf_dir/$name.pdf" ]] && ! [[ -e "$pdf_latex_dir/$filename" ]]; then
+    return 0
+  fi
+
+  input_check_sum=$(sha256sum $input_file | cut -d ' ' -f 1)
+  output_check_sum=$(sha256sum "$pdf_latex_dir/$filename" | cut -d ' ' -f 1)
+  if ! [[ $input_check_sum = $output_check_sum ]]; then
+    return 0
+  fi
+
+  for file in $file_deps; do
+    if [[ -e $rel_location/$file ]] && [[ -e $pdf_latex_dir/$file ]]; then
+      asum=$(sha256sum $rel_location/$file  | cut -d ' ' -f 1)
+      bsum=$(sha256sum $pdf_latex_dir/$file | cut -d ' ' -f 1)
+
+      if ! [[ $asum = $bsum ]]; then
+        return 0
+      fi
+    else
+      # Special case for inline bibtex addbibresource{}
+      if ! [[ "${file##*.}" = "bib" ]]; then
+        return 0
+      fi
+    fi
+  done
+
+  is_cached=true
+}
+
+build() {
+  if [[ $is_cached = true ]]; then
+    printf "$input_file is cached.\n"
+    return 0
+  fi
+
+  printf "compiling $input_file..."
+
+  current_dir=$(pwd)
+  cd $rel_location
+  exec_build_cmd "stage1" "pdflatex -halt-on-error --interaction=nonstopmode -output-directory=$abs_latex_build_dir $filename"
+  exec_build_cmd "stage2" "biber $abs_latex_build_dir/$name"
+  exec_build_cmd "stage3" "pdflatex -halt-on-error --interaction=nonstopmode -output-directory=$abs_latex_build_dir $filename"
+  cd $current_dir
+
   printf "done!\n"
-fi
+}
+
+postbuild() {
+  if [[ $is_cached = true ]]; then
+    return 0
+  fi
+
+  if ! [[ -e $abs_pdf_dir ]]; then
+    printf "PDF output path does not exist!\n"
+    return 1
+  fi
+
+  if [[ -e "$abs_latex_build_dir/$name.pdf" ]]; then
+    cp "$abs_latex_build_dir/$name.pdf" $abs_pdf_dir
+  fi
+
+  # Copy LaTeX and dependency files
+  cp $input_file $pdf_latex_dir
+  for file in $file_deps; do
+    file_dir=$(dirname $file)
+    if ! [[ $file_dir = '.' ]]; then
+      mkdir -p "$pdf_latex_dir/$file_dir"
+    else
+      file_dir=""
+    fi
+    if [[ -e "$rel_location/$file" ]]; then
+      cp "$rel_location/$file" "$pdf_latex_dir/$file_dir"
+    fi
+    file_dir=""
+  done
+}
+
+parse_args $@
+prebuild
+check_cache
+build
+postbuild
+

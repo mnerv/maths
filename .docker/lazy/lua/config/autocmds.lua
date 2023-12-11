@@ -15,8 +15,12 @@ vim.api.nvim_create_autocmd("FileType", {
   desc = "Change commentstring for c/c++ files",
 })
 
--- Wrap for special files
-vim.api.nvim_command("autocmd BufRead,BufNewFile *.tex set wrap")
-vim.api.nvim_command("autocmd BufRead,BufNewFile *.tex set linebreak")
-vim.api.nvim_command("autocmd BufRead,BufNewFile *.md set wrap")
-vim.api.nvim_command("autocmd BufRead,BufNewFile *.md set linebreak")
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "tex", "bib" },
+  callback = function()
+    vim.opt.wrap         = true
+    vim.opt.linebreak    = true
+    vim.opt.conceallevel = 2
+  end,
+  desc = "Wrap, linebreak and conceallevel for LaTeX files",
+})

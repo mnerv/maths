@@ -52,7 +52,7 @@ jobs:
 
     - name: Build pdf using docker image
       run: |
-        docker run --rm -v "$(pwd):/home/porter/app" --name maths --user root --hostname latex latex sh ./deploy.sh -j -p
+        docker run --rm -v "$(pwd):/home/porter/app" --name maths --user root --hostname latex latex sh ./deploy.sh --parallel --production --dist-dir="dist"
 
     - name: Upload site artifact
       uses: actions/upload-pages-artifact@v2

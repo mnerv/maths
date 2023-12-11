@@ -1,23 +1,24 @@
 #!/usr/bin/env sh
 deps="
+bat
+build-base
+coreutils
 curl
+exa
 git
+htop
 neofetch
 neovim
 neovim-doc
+nodejs
 openssh
+openssl
+parallel
+ripgrep
+shadow
 tmux
 wget
-ripgrep
-nodejs
-shadow
-htop
-exa
-bat
-parallel
-openssl
 zsh
-build-base
 "
 deps=$(printf "$deps" | tr '\n' ' ' | sed -e 's/^[[:space:]]*//')
 
