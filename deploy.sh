@@ -133,13 +133,15 @@ prebuild() {
     return 0
   fi
 
-  if [[ -z $cache_uri ]]; then
+  if ! [[ -z $cache_uri ]]; then
     cd $build_dir
     wget $cache_uri
     cd $root_dir
   fi
 
   # BUG: Removed LaTeX file won't be updated.
+  # BUG: On Windows docker, the expanded archive can't be renamed, permission
+  #      denied.
   if [[ -e "$build_dir/archive.tar.gz" ]]; then
     cd $build_dir
     tar -xzf "./archive.tar.gz"
