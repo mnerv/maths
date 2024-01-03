@@ -27,5 +27,26 @@ Beräkna integralen
 \[
     \int_0^1 x \cdot e^x dx
 \]
+
+\noindent\rule{\textwidth}{0.5pt}
+
+\textbf{Partialintegration (p.319)}
+
+\textbf{Sats 13.9} (Partialintegration). \textit{Antag att $F$ är en primitiv funktion till $f$, och att $f$ och $g'$ är kontinuerliga på intervallet $[a, b]$. Då gäller}
+
+\begin{equation*}
+    \int_a^b{f(x)g(x)}dx = \left [F(x)g(x)\right ]_a^b - \int_a^b{F(x)g'(x)}dx.
+\end{equation*}
+
+Svar:
+
+\begin{align*}
+    \int_{0}^{1} x \cdot e^{x} dx &= \left[e^{x} x\right]_0^1 - \int_0^1 e^{x} dx \\
+    &= \left[e^{x} x\right]_0^1 - \left[ e^x \right]_0^1 \\
+    &= \left[e^x(x - 1)\right]_0^1 \\
+    &= (e^1(1 - 1)) - (e^0(0 - 1)) \\
+    &= 0 - (-1) = 1
+\end{align*}
+
 \end{document}
 
