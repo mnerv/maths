@@ -183,7 +183,7 @@ exec_build_cmd() {
 check_cache() {
   is_cached=false
 
-  if ! [[ -e "$abs_pdf_dir/$name.pdf" ]] && ! [[ -e "$pdf_latex_dir/$filename" ]]; then
+  if ! [[ -e "$abs_pdf_dir/$name.pdf" ]] || ! [[ -e "$pdf_latex_dir/$filename" ]]; then
     return 0
   fi
 
