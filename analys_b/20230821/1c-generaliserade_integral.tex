@@ -28,5 +28,48 @@ Avgör om den generaliserade integralen
     \int_0^{\infty} \frac{e^{-x}}{\sqrt{1 + e^{-x}}} dx
 \]
 är konvergent och beräkna den i så fall.
+
+\noindent\rule{\textwidth}{0.5pt}
+
+Lösning:
+
+\begin{align}
+    \int_0^{\infty} \frac{e^{-x}}{\sqrt{1 + e^{-x}}} dx &=
+    \left[\begin{aligned}
+        t &= -x\\
+        \frac{dt}{dx} &= -1 \ \Leftrightarrow\ dt = -dx
+    \end{aligned}\right] \\
+    &= \int_{0}^{\infty} \frac{e^t}{\sqrt{1 + e^t}} dt =
+    \left[\begin{aligned}
+        u &= 1 + e^t\\
+        \frac{du}{dt} &= e^t \ \Leftrightarrow\ du = e^t dt
+    \end{aligned}\right] \\
+    &= \int_0^\infty -\frac{1}{\sqrt{u}} du \\
+    &= \left[\ -2\sqrt{u}\ \right]_0^{\infty}
+\end{align}
+
+Vi byter tillbaka variabel $u = 1 + e^t$
+
+\begin{equation}
+   \left[-2\sqrt{1 + e^t}\ \right]_0^{\infty}.
+\end{equation}
+
+Och $t = -x$
+
+\begin{equation}
+    \left[-2\sqrt{1 + e^{-x}}\ \right]_0^{\infty}.
+\end{equation}
+
+Beräkna integralen
+
+\begin{align}
+    \lim_{T \rightarrow \infty} \left(\left(-2\sqrt{1 + e^{-T}}\right) - \left(-2\sqrt{1 + e^{-0}}\right)\right) 
+    &= \left(\left(-2\sqrt{1 + 0}\right) - \left(-2\sqrt{2}\right)\right) \\
+    &= 2\sqrt{2} - 2\\
+    &= 2(\sqrt{2} - 1)
+\end{align}
+
+Svar: Ja, generaliserade integralen är konvergent med värde $2(\sqrt{2} - 1)$
+
 \end{document}
 
