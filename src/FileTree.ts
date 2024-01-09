@@ -53,9 +53,10 @@ export function pathsToFileTree(paths: string[]): NodeT[] {
     let parent: NodeT | null = null
     for (let i = 0; i < sep.length; ++i) {
       key += '/' + sep[i]
-      const name = sep[i].split('_')
-                   .map(v => v[0].toUpperCase() + v.slice(1, v.length)).join(' ')
-                   .split('-').map(v => v[0].toUpperCase() + v.slice(1, v.length)).join('. ')
+      // const name = sep[i].split('_')
+      //              .map(v => v[0].toUpperCase() + v.slice(1, v.length)).join(' ')
+      //              .split('-').map(v => v[0].toUpperCase() + v.slice(1, v.length)).join('. ')
+      const name = sep[i]
       const node: NodeT = {
         key: key,
         name: name,
