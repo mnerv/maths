@@ -24,6 +24,46 @@
 \setcounter{secnumdepth}{0}  % Disable section numbering
 
 \begin{document}
+
 Lösbegynnelsevärdesproblemet $y' + x \cdot y = e^{-x^2 / 2}$, $y(0) = 5$.
+
+\noindent\rule{\textwidth}{0.5pt}
+
+
+Lösning: Vi använder oss av integerande faktor.
+
+\begin{equation}
+    y' + x \cdot y = e^{-x^2 / 2}
+\end{equation}
+
+$g(x) = x$, $G(x) = \frac{1}{2}x^2$, IF = $e^{\frac{1}{2}x^2}$
+
+\begin{equation}
+    e^{\frac{1}{2}x^2} \cdot y' + e^{\frac{1}{2}x^2} \cdot x \cdot y = e^{\frac{1}{2}x^2} \cdot e^{-x^2 / 2}
+\end{equation}
+
+\begin{equation}
+    \frac{d}{dx}\left(y \cdot e^{\frac{1}{2}x^2}\right) = e^{\frac{1}{2}x^2} \cdot e^{-x^2 / 2}
+\end{equation}
+
+\begin{align}
+    y \cdot e^{\frac{1}{2}x^2} &= \int e^{\frac{1}{2}x^2} \cdot e^{-x^2 / 2} dx\\
+    y \cdot e^{\frac{1}{2}x^2} &= \int e^{\frac{1}{2}x^2  - \frac{1}{2}x^2} dx \\
+    y \cdot e^{\frac{1}{2}x^2} &= \int e^0 dx = \int 1 dx \\
+    y \cdot e^{\frac{1}{2}x^2} &= x + C\\
+    y &= (x + C) \cdot e^{-\frac{1}{2}x^2} \\
+    y &= xe^{-\frac{1}{2}x^2} + Ce^{-\frac{1}{2}x^2} \\
+\end{align}
+
+För $y(0) = 5$
+
+\begin{align}
+    5 &= xe^{-\frac{1}{2}0^2} + Ce^{-\frac{1}{2}0^2} \\
+    5 &= 0 + C \\
+    C &= 5
+\end{align}
+
+Svar: $y(x) = xe^{-\frac{1}{2}x^2} + 5e^{-\frac{1}{2}x^2}$
+
 \end{document}
 
