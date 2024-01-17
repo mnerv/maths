@@ -35,5 +35,25 @@ Beräkna längden av kurvan
 
 \noindent\rule{\textwidth}{0.5pt}
 
+\begin{equation}
+    \Delta s \approx \sqrt{x'(t)^2 + y'(t)^2}dt.
+    \label{eq:kurvlangd}
+\end{equation}
+
+Lösning:
+
+\begin{align}
+    x'(t) &= e^t - e^{-t}\\
+    y'(t) &= 2
+\end{align}
+
+\begin{align}
+    \int_0^2 \sqrt{x'(t)^2 + y'(t)^2} dt &= \int_0^2 \sqrt{\left(e^t - e^{-t}\right)^2 + 2^2} dt \\
+    \int_0^2 \sqrt{e^{2t} + e^{-2t} + 2} dt &= \left[\begin{aligned}
+        u &= e^{2t} + e^{-2t} + 2\\
+        \frac{du}{dt} &= 2e^{2t} - 2e^{-2t} \Leftrightarrow \frac{du}{2} = e^{2t} - e^{-2t}dt
+    \end{aligned}\right]
+\end{align}
+
 \end{document}
 
