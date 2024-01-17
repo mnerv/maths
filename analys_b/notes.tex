@@ -353,7 +353,7 @@ precis som vi tidigare sett.
 
 \subsection{Räknelagar för integraler (p.311)}
 
-\textbf{Sats 13.4}. \textit{Antag att funktionerna $f$ och $g$ är integrerbara p[ intervallet $[a, b]$. Då gäller:}
+\textbf{Sats 13.4}. \textit{Antag att funktionerna $f$ och $g$ är integrerbara på intervallet $[a, b]$. Då gäller:}
 
 \begin{align}
     \int_a^b{\alpha f(x)} dx &= \alpha \int_a^b{f(x)} dx, \qquad \alpha\ \text{konstant},\\
@@ -363,11 +363,42 @@ precis som vi tidigare sett.
 \end{align}
 
 \subsubsection{Partialintegration (p.319)}
+asdf
 
 \textbf{Sats 13.9} (Partialintegration). \textit{Antag att $F$ är en primitiv funktion till $f$, och att $f$ och $g'$ är kontinuerliga på intervallet $[a, b]$. Då gäller}
 
 \begin{equation}
     \int_a^b{f(x)g(x)}dx = \left [F(x)g(x)\right ]_a^b - \int_a^b{F(x)g'(x)}dx.
+\end{equation}
+
+\subsection{Kurvlängd och rotationsarea (p. 346)}
+
+% Tillämpningar av integraler del 13 - kurvlängd, härledning av formel: https://www.youtube.com/watch?v=BhqWIDBu7ig&list=PL2w8yt28pgXo6o-czIRN3J98jVE_Bwldi&index=43
+
+Vi vill approximera kurvans längd mellan punkterna $\gamma(t) = (x(t), y(t))$ och $\gamma(t) = (x(t + dt), y(t + dt))$ med längden av det räta linjestycket mellan dessa punkterö för små $dt$ borde detta vara en bra approximation.
+
+\begin{equation}
+    \Delta x = x(t + dt) - x(t)\quad \mathrm{och}\quad \Delta y = y(t + dt) - y(t)
+    \label{eq:kurvlangd_def}
+\end{equation}
+
+så får vi linjestyckets längd $\Delta s$ till
+
+\begin{equation}
+    \Delta s = \sqrt{(\Delta x)^2 + (\Delta y)^2} = \sqrt{\left((\Delta x)^2 + (\Delta y)^2\right)\frac{1}{(dt)^2}}|dt| = \sqrt{\left(\frac{\Delta x}{dt}\right)^2 + \left(\frac{\Delta y}{dt}\right)^2 dt},
+    \label{eq:kurvlangd_linje}
+\end{equation}
+
+där vi i den sista likheten har antagit att $dt$ är positivt. För små $dt$ gäller det, enligt definitionen av derivata, att
+
+\begin{equation}
+    \frac{\Delta x}{dt} = \frac{x(t + dt) - x(t)}{dt} \approx x'(t)\quad \mathrm{och}\quad \frac{\Delta x}{dt} = \frac{y(t + dt) - y(t)}{dt} \approx y'(t)
+    \label{eq:kurvlangd_def_deri}
+\end{equation}
+
+\begin{equation}
+    \Delta s \approx \sqrt{x'(t)^2 + y'(t)^2}dt.
+    \label{eq:kurvlangd}
 \end{equation}
 
 \newpage
