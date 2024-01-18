@@ -1,0 +1,33 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}     % Fix weird character
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{spalign}
+\usepackage{xfrac}
+\usepackage{parskip}
+\usepackage{float}  % figure[H]
+\usepackage[style=ieee,backend=biber]{biblatex}
+\usepackage[breaklinks=true,bookmarks=true,hidelinks]{hyperref}
+\usepackage{tikz}
+
+\geometry{
+    a4paper,
+    hmargin=2.54cm,
+    tmargin=1.27cm,
+    bmargin=1.27cm,
+    includeheadfoot
+}
+\setcounter{secnumdepth}{0}  % Disable section numbering
+
+\begin{document}
+Med hjälp av Maclaurinutveckling beräkna följande gränsvärdet
+
+\[
+    \lim_{x \to 0} \frac{\ln(1 + 2x) + 4x^2}{(1 + x)^4 - 1 + x^2}.
+\]
+
+\end{document}
+
