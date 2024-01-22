@@ -1,0 +1,63 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}     % Fix weird character
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{spalign}
+\usepackage{xfrac}
+\usepackage{parskip}
+\usepackage{float}  % figure[H]
+\usepackage[style=ieee,backend=biber]{biblatex}
+\usepackage[breaklinks=true,bookmarks=true,hidelinks]{hyperref}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{circuitikz}
+\pgfplotsset{compat=newest,compat/show suggested version=false}
+
+\geometry{
+    a4paper,
+    hmargin=2.54cm,
+    tmargin=1.27cm,
+    bmargin=1.27cm,
+    includeheadfoot
+}
+\setcounter{secnumdepth}{0}  % Disable section numbering
+
+\begin{document}
+\section{Operational Amplifier}
+
+\begin{center}
+\begin{circuitikz} \draw
+    (0,0) node[op amp] (opamp) {}
+    (opamp.+) node[left] {$v_+$}
+    (opamp.-) node[left] {$v_-$}
+    (opamp.out) node[right] {$v_o$}
+    (opamp.up) --++(0,0.5) node[vcc]{\textnormal{+V}}
+    (opamp.down) --++(0,-0.5) node[vee]{\textnormal{-V}}
+    ;
+\end{circuitikz}
+% \begin{circuitikz}
+%     \draw (0,0) node[above]{$v_a$} to[short, o-] ++(1,0)
+%     node[op amp, noinv input up, anchor=+](OA){}
+%     (OA.-) to[short, -o] ++(-1,0) node[above]{$v_b$}
+%     (OA.out) to[short, -o] ++(1,0) node[above]{$v_o$}
+%     ;
+% \end{circuitikz}
+\end{center}
+
+\subsection{Inverting Amplifier}
+
+\subsubsection{Example}
+
+\subsection{Non-Inverting Amplifier}
+
+\subsection{Buffer}
+
+\subsection{Differential Amplifiers}
+
+\subsection{Current Sensing: Low-, High-side and Zero Drift}
+
+\end{document}
+
