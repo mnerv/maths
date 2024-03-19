@@ -30,17 +30,18 @@ abs_pdf_dir=""
 file_deps=""
 
 help() {
-  printf "usage: $arg0 [options] <file.tex>\n"
-  printf "\n"
-  printf "options:\n"
-  printf "    -h, --help               Show this menu.\n"
-  printf "    --dry-run                Dry run the commands.\n"
-  printf "    --build-dir=<directory>  Specify build directory.\n"
-  printf "    --skip-bibtex            Skip generating bibtex.\n"
-  printf "    --no-cache               This action skips the cache check.\n"
-  # printf "    --no-spin                Disable spin status for compile steps.\n"
-  printf "    --clean                  Clean before build. This will remove\n"
-  printf "                             output pdf and the build intermediate steps.\n"
+  cat << EOF
+usage: $arg0 [options] <file.tex>
+
+options:
+    -h, --help               Show this menu.
+    --dry-run                Dry run the commands.
+    --build-dir=<directory>  Specify build directory.
+    --skip-bibtex            Skip generating bibtex.
+    --no-cache               This action skips the cache check.
+    --clean                  Clean before build. This will remove
+                             output pdf and the build intermediate steps.
+EOF
 }
 
 parse_args() {

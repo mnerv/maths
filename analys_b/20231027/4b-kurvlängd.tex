@@ -51,8 +51,13 @@ Lösning:
     \int_0^2 \sqrt{x'(t)^2 + y'(t)^2} dt &= \int_0^2 \sqrt{\left(e^t - e^{-t}\right)^2 + 2^2} dt \\
     \int_0^2 \sqrt{e^{2t} + e^{-2t} + 2} dt &= \left[\begin{aligned}
         u &= e^{2t} + e^{-2t} + 2\\
-        \frac{du}{dt} &= 2e^{2t} - 2e^{-2t} \Leftrightarrow \frac{du}{2} = e^{2t} - e^{-2t}dt
-    \end{aligned}\right]
+        \frac{du}{dt} &= 2e^{2t} - 2e^{-2t} \Leftrightarrow du = 2e^{2t} - 2e^{-2t}dt\\
+        a &= e^(2 \cdot 0) + e^{-2 \cdot 0} + 2 = 4\\
+        b &= e^{2 \cdot 2} + e^{-2 \cdot 2} + 2 = e^4 + e^{-4} + 2
+    \end{aligned}\right]\\
+    &= \int_a^b \sqrt{u} du = \left[\frac{2}{3}u^{\frac{3}{2}}\right]_a^b\\
+    &= \frac{2}{3}\left[u^{\frac{3}{2}}\right]_2^{e^4 + e^{-4}} \\
+    &= \frac{2}{3}\left(\left(e^4 + e^{-4}\right)^{\frac{3}{2}} - \left(2\right)^{\frac{3}{2}}\right)
 \end{align}
 
 \end{document}

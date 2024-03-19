@@ -19,21 +19,23 @@ is_production=false
 is_skip_load_cache=false
 
 help() {
-  printf "usage: $arg0 [options]\n"
-  printf "\n"
-  printf "options:\n"
-  printf "    -h, --help          Show this menu.\n"
-  printf "    --dry-run           Dry run the commands.\n"
-  printf "    --clean             Clean the output directories build and pdfs\n"
-  printf "                        before compiling.\n"
-  printf "    --parallel          Use parallel to run the compile scripts.\n"
-  printf "    --production        Create pdf in distribution directory.\n"
-  printf "    --build-dir         Specify build directory,\n"
-  printf "                        example: --build-dir=\"build\". Default: build.\n"
-  printf "    --dist-dir          Specify dist directory,\n"
-  printf "                        example: --dist-dir=\"dist\". Default: dist.\n"
-  printf "    --cache-uri         Set cache uri to download.\n"
-  printf "    --skip-load-cache   Skip loading cache.\n"
+  cat << EOF
+usage: $arg0 [options]
+
+options:
+    -h, --help          Show this menu.
+    --dry-run           Dry run the commands.
+    --clean             Clean the output directories build and pdfs
+                        before compiling.
+    --parallel          Use parallel to run the compile scripts.
+    --production        Create pdf in distribution directory.
+    --build-dir         Specify build directory,
+                        example: --build-dir=\"build\". Default: build.
+    --dist-dir          Specify dist directory,
+                        example: --dist-dir=\"dist\". Default: dist.
+    --cache-uri         Set cache uri to download.
+    --skip-load-cache   Skip loading cache.
+EOF
 }
 
 generate_file_index() {
