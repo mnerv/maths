@@ -12,7 +12,7 @@
   })
 </script>
 
-<File title={tree.name} level={tree.level} href={tree.href} info={`${tree.children.length}`} on:click={() => {
+<File title={tree.name} level={tree.level} href={tree.href} info={`${tree.children.length}`} isExpand={!isCollapse} on:click={() => {
     isCollapse = !isCollapse
     localStorage.setItem(tree.key, JSON.stringify(isCollapse))
   }

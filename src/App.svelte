@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+  import Icon from '@iconify/svelte';
   import File from './File.svelte';
   import FileTree from './FileTree.svelte';
   import { pathsToFileTree, type NodeT, sortByType } from './FileTree';
@@ -32,5 +33,13 @@
     {#each trees as tree}
       <FileTree {tree} />
     {/each}
+  </div>
+  <div class='fixed bottom-0 right-0 p-4 hover:text-blue-nordic'>
+    <a class='mx-auto hover:underline hover:text-blue-400 transition-all duration-150 font-light'
+      href='https://github.com/mnerv/maths'
+      title='Open Github repository'
+      target='_blank'>
+      <Icon icon="bi:github" />
+    </a>
   </div>
 </main>
